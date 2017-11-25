@@ -62,24 +62,31 @@ module.exports = function(env) {
             filename: env == 'prod' ? '[name].[chunkhash].js' : '[name].js',
         },
         module: {
-            rules: [{
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env']
-                    }
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules|bower_components)/,
+                    use: { loader: 'babel-loader', options: { presets: ['env'] } }
+                },
+                {
+                    test: /\.css$/,
+                    use: ExtractTextPlugin.extract({ use: 'css-loader' })
+                },
+                {
+                    test: [/\.mp3$/, /\.dae$/, /\.jpg$/, /\.obj$/, /\.fbx$/],
+                    use: ['file-loader?name=[path][name].[hash].[ext]']
+                },  
+                {
+                    test: /\.scss$/,
+                    use: [  { loader: "style-loader"}, // creates style nodes from JS strings
+                            { loader: "css-loader"},   // translates CSS into CommonJS
+                            { loader: "sass-loader"}]  // compiles Sass to CSS
+                },
+                {
+                    test:[/\.vert$/,/\.frag$/],
+                    loader: 'webpack-glsl-loader'
                 }
-             },{
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader'
-                })
-            },{
-                test: [/\.mp3$/, /\.dae$/, /\.jpg$/, /\.obj$/, /\.fbx$/],
-                use: ['file-loader?name=[path][name].[hash].[ext]']
-            }]
+            ]
         },
         devtool: env == 'dev' ? 'cheap-eval-source-map' : '',
         plugins: plugins,
