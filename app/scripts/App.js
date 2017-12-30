@@ -70,6 +70,8 @@ export default class App {
     render() {
         this.clock.update();
 
+        this.mesh.rotation.y = (this.clock.elapsed / this.config.animationDuration) * Math.PI*2;
+
     	this.renderer.render( this.scene, this.camera );
     }
 

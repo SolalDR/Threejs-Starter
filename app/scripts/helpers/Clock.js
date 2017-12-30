@@ -25,7 +25,7 @@ export default class Clock {
 	start () {
 		
 		this._start = Date.now();
-		this._old = this._start;
+		this.old = this._start;
 		this.elapsed = 0;
 		this.running = true; 
 
