@@ -1,6 +1,7 @@
 
 import OrbitControls from "./helpers/OrbitControls.js"
 import Dat from "dat-gui"
+import { Stats } from "three-stats"
 import Clock from "./helpers/Clock.js"
 
 export default class App {
@@ -26,13 +27,15 @@ export default class App {
         this.controls = new OrbitControls( this.camera );
         this.controls.maxZoom = 50; 
         this.controls.minZoom = 50; 
-        
+        this.mouse = new THREE.Vector2();
 
         this.initConfig();
 
         // Init Clock
         this.clock = new Clock();
-        
+        this.stats = new Stats();
+        this.stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild( this.stats.dom );
 
     	this.scene = new THREE.Scene();
 
@@ -68,11 +71,14 @@ export default class App {
 
 
     render() {
+        this.stats.begin();
         this.clock.update();
 
         this.mesh.rotation.y = (this.clock.elapsed / this.config.animationDuration) * Math.PI*2;
 
     	this.renderer.render( this.scene, this.camera );
+
+        this.stats.end();
     }
 
 
