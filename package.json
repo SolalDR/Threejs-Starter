@@ -30,7 +30,8 @@
     "script-loader": "^0.7.0",
     "sass-loader": "^6.0.6",
     "webpack-glsl-loader": "^1.0.1",
-    "json-loader": "^0.5.4"
+    "json-loader": "^0.5.4",
+    "noisejs": "latest"
   },
   "dependencies": {
     "dat-gui": "latest",
