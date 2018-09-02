@@ -1,4 +1,4 @@
-import './index.css';
+import './sass/app.sass';
 
 import App from './scripts/App';
 
